@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.externals import joblib
 from sklearn.pipeline import Pipeline
+import pathlib
 
 from regression_model.config import config
 from regression_model import __version__ as _version
@@ -40,7 +41,8 @@ def load_pipeline(*, file_name: str
                   ) -> Pipeline:
     """Load a persisted pipeline."""
 
-    file_path = config.TRAINED_MODEL_DIR / file_name
+    path = pathlib.Path(__file__).resolve().parent.parent
+    file_path = f"{path}/trained_models/{file_name}"
     trained_model = joblib.load(filename=file_path)
     return trained_model
 
